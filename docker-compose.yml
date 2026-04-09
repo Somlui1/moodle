@@ -9,6 +9,7 @@ services:
       - "8080:80"
     volumes:
       - ./src:/var/www/html
+      - ./moodledata:/var/www/moodledata
       # If you want to use your custom php.ini, you can uncomment the line below
       # - ./php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     environment:
