@@ -41,6 +41,11 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/moodle/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+# Create Moodle Data Directory and set permissions
+RUN mkdir -p /var/moodledata && \
+    chown -R www-data:www-data /var/moodledata && \
+    chmod -R 777 /var/moodledata
+
 # Setup working directory
 WORKDIR /var/www/html
 
