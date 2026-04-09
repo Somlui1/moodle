@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      # If you want to use your custom php.ini, you can uncomment the line below
+      # - ./php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+    environment:
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
