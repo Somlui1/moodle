@@ -38,7 +38,7 @@ RUN a2enmod rewrite ssl
 RUN a2ensite default-ssl
 
 # Configure Apache DocumentRoot and SSL certificates
-ENV APACHE_DOCUMENT_ROOT /var/www/html/moodle/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/moodle/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 RUN sed -i 's|/etc/ssl/certs/ssl-cert-snakeoil.pem|/etc/ssl/certs/aapico_2026.crt|g' /etc/apache2/sites-available/default-ssl.conf
