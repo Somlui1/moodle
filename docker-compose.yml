@@ -5,9 +5,12 @@ services:
       dockerfile: dockerfile
     ports:
       - "8080:80"
+      - "443:443"
     volumes:
       - ./src:/var/www/html
       - ./moodledata:/var/moodledata
+      - ./aapico_2026.crt:/etc/ssl/certs/aapico_2026.crt
+      - ./aapico_2026.key:/etc/ssl/private/aapico_2026.key
     environment:
       - APACHE_RUN_USER=www-data
       - APACHE_RUN_GROUP=www-data

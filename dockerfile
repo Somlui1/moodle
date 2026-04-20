@@ -34,12 +34,15 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
         opcache
 
 # Enable Apache modules
-RUN a2enmod rewrite
+RUN a2enmod rewrite ssl
+RUN a2ensite default-ssl
 
-# Configure Apache DocumentRoot
+# Configure Apache DocumentRoot and SSL certificates
 ENV APACHE_DOCUMENT_ROOT /var/www/html/moodle/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN sed -i 's|/etc/ssl/certs/ssl-cert-snakeoil.pem|/etc/ssl/certs/aapico_2026.crt|g' /etc/apache2/sites-available/default-ssl.conf
+RUN sed -i 's|/etc/ssl/private/ssl-cert-snakeoil.key|/etc/ssl/private/aapico_2026.key|g' /etc/apache2/sites-available/default-ssl.conf
 
 # Create Moodle Data Directory and set permissions
 RUN mkdir -p /var/moodledata && \
